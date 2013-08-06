@@ -5,7 +5,8 @@ class ConfigurationNamesController < ApplicationController
 	end
 
 	def create
-		@config_name = ConfigurationName(params[:config_name].permit(:name))
+		@config_name = ConfigurationName.new(params[:config_name].permit(:name))
+		@config_name.save
 	end
 
 end
