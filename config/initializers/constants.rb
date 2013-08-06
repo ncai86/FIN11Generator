@@ -75,7 +75,3 @@ HEADER_LINE = ["Volume header",
 
 
 
-
-Record Sequence Number
-Trailer Line
-Last Record Sequence Number]
