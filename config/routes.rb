@@ -1,10 +1,10 @@
-LogCleaner::Application.routes.draw do
-  root :to => 'generators#main'
-  resources :generators do
+FIN11Generator::Application.routes.draw do
+  root :to => 'configuration_fields#index'
+  resources :configuration_fields, only: [:index] do
     collection do
-      get 'main'
-      post 'process_file'
-      get 'download'
+      post 'add_record'
+      # post 'process_file'
+      # get 'download'
     end
   end
 
