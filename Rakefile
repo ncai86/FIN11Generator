@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-LogCleaner::Application.load_tasks
+FIN11Generator::Application.load_tasks
