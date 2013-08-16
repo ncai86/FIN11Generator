@@ -1,0 +1,27 @@
+// Place all the styles related to the ConfigurationFields controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+div.tableContainer {
+	clear: both;
+	width: 900px;
+	margin-left: auto;
+    margin-right: auto;
+    padding: 20px 0px;
+}
+
+table.contentTable {
+	display: table;
+	border-spacing: 2px;
+}
+
+table.contentTable tr {
+   border-bottom: 1px solid #CCCCCC;
+}
+
+
+div.scrolling {
+	clear: both;
+	width: 900px;
+}
+
