@@ -1,6 +1,7 @@
 class ConfigurationFieldsController < ApplicationController
 
 	RECORDS = []
+	MERCHANT_ID_CHARACTERS = 15
 
 	def index
 		# even = []
@@ -13,25 +14,68 @@ class ConfigurationFieldsController < ApplicationController
 	end
 
 	def add_record
-		fields = params[:fields]
+		session[:records] ||= []
 
-		logger.info 'testteesttest'
+		set_ordered_parameters
+
+		fields = params[:fields]
+		logger.info 'test fields'
 		logger.info fields
 
-		fields.each do |k,v|
-			k.underscore = v
+		logger.info 'looping'
+		# Initialize 
+		record = ""
+
+		# looping ordered list
+		# checking if parameters in form is present
+		# Storing FIN11 record string
+		@order.each do |o|
+			logger.info o
+			logger.info fields.include?(o)
+			
+			if fields.include?(o)
+				if o == "merchant-id"
+					record += "0" * (MERCHANT_ID_CHARACTERS - fields[o.to_s].length) + fields[o.to_s] + ";"
+				else
+					record += (fields[o.to_s] + ";")
+				end
+			end
 		end
 
-		merchant_id = ""
+		session[:records] << record
+		logger.info 'SESSION RECORDS'
+		logger.info session[:records]
 
+		
+		# order.each do |ordered_param|
+		# 	fields
+
+		# fields.each do |k,v|
+		# 	k = k.underscore
+		# 	logger.info k
+		# 	if k == 'merchant_id'
+		# 		k = '0' * (MERCHANT_ID_CHARACTERS - v.length) + v
+		# 	else
+		# 		k = v
+		# 	end
+		# 	logger.info " value is #{k}"
+
+		# 	logger.info ""
+		# end
 
 		redirect_to root_url
 	end
 
 private
-	def validate_fields
-		params
-	end
 
+	def set_ordered_parameters
+		@order = []
+		FIELDS.each do |f|
+			@order << f.parameterize.gsub("company-s-", "company-")
+		end
+		logger.info 'Order is '
+		logger.info @order
+		@order
+	end
 
 end
