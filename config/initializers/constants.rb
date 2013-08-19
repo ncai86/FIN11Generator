@@ -16,6 +16,7 @@ FIELDS = [
 	"Point of Sale email",
 	"Company's Legal Name",
 	"Company's address",
+	"Company's city",
 	"Company's province",
 	"Company's post code",
 	"Company's country",
