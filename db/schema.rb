@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130805091031) do
+ActiveRecord::Schema.define(:version => 20130816070822) do
 
   create_table "configuration_fields", :force => true do |t|
     t.string   "name"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20130805091031) do
     t.integer  "configuration_name_id"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
+    t.integer  "character_limit"
   end
 
   create_table "configuration_names", :force => true do |t|
