@@ -10,41 +10,37 @@ class ConfigurationFieldsController < ApplicationController
 		# @left_half = even
 		# @right_half = fields - @left_half
 		gon.hiddenFields = ConfigurationField.disabled_fields.collect{|f| 	f.name.parameterize.gsub("company-s-","company-")}
-
 	end
 
 	def add_record
-		session[:records] ||= []
-
+		# Gets the constant FIELD that contains the ordered parameters and parameterizes each value
 		set_ordered_parameters
 
 		fields = params[:fields]
-		logger.info 'test fields'
-		logger.info fields
-
-		logger.info 'looping'
-		# Initialize 
+		# Initialize record
 		record = ""
 
 		# looping ordered list
 		# checking if parameters in form is present
 		# Storing FIN11 record string
 		@order.each do |o|
-			logger.info o
-			logger.info fields.include?(o)
-			
 			if fields.include?(o)
 				if o == "merchant-id"
-					record += "0" * (MERCHANT_ID_CHARACTERS - fields[o.to_s].length) + fields[o.to_s] + ";"
+					record += "0" * (MERCHANT_ID_CHARACTERS - fields[o].length) + fields[o] + ";"
 				else
-					record += (fields[o.to_s] + ";")
+					record += (fields[o] + ";")
 				end
 			end
 		end
 
-		session[:records] << record
-		logger.info 'SESSION RECORDS'
-		logger.info session[:records]
+		#e.g. ;;;0000000;;; 
+		# if records key is nil, initialize collated variable.
+		# else collated variable set to cached records value
+
+		Rails.cache.read(:records).nil? ? collated = [] : collated = Rails.cache.read(:records)
+		# rewrite collated value to records key after adding to FIN11 record string to collated array
+		Rails.cache.write(:records, collated << record)
+
 
 		
 		# order.each do |ordered_param|
