@@ -1,5 +1,6 @@
 class ConfigurationFieldsController < ApplicationController
 
+
 	RECORDS = []
 	MERCHANT_ID_CHARACTERS = 15
 
@@ -10,6 +11,7 @@ class ConfigurationFieldsController < ApplicationController
 		# @left_half = even
 		# @right_half = fields - @left_half
 		gon.hiddenFields = ConfigurationField.disabled_fields.collect{|f| 	f.name.parameterize.gsub("company-s-","company-")}
+		@display_records = Rails.cache.read("records_#{ip_identifer}")
 	end
 
 	def add_record
@@ -20,9 +22,11 @@ class ConfigurationFieldsController < ApplicationController
 		# Initialize record
 		record = ""
 
+
 		# looping ordered list
 		# checking if parameters in form is present
 		# Storing FIN11 record string
+
 		@order.each do |o|
 			if fields.include?(o)
 				if o == "merchant-id"
@@ -30,6 +34,8 @@ class ConfigurationFieldsController < ApplicationController
 				else
 					record += (fields[o] + ";")
 				end
+			else
+				record += ";"
 			end
 		end
 
@@ -37,11 +43,10 @@ class ConfigurationFieldsController < ApplicationController
 		# if records key is nil, initialize collated variable.
 		# else collated variable set to cached records value
 
-		Rails.cache.read(:records).nil? ? collated = [] : collated = Rails.cache.read(:records)
+		Rails.cache.read("records_#{ip_identifer}").nil? ? collated = [] : collated = Rails.cache.read("records_#{ip_identifer}")
 		# rewrite collated value to records key after adding to FIN11 record string to collated array
-		Rails.cache.write(:records, collated << record)
-
-
+		Rails.cache.write("records_#{ip_identifer}", collated << record)
+		logger.info Rails.cache.read("records_#{ip_identifer}")
 		
 		# order.each do |ordered_param|
 		# 	fields
@@ -62,11 +67,19 @@ class ConfigurationFieldsController < ApplicationController
 		redirect_to root_url
 	end
 
-private
+	def clear_records
+		logger.info Rails.cache.read("records_#{ip_identifer}")
+		Rails.cache.write("records_#{ip_identifer}", nil)
+		logger.info Rails.cache.read("records_#{ip_identifer}")
+
+		redirect_to root_url
+	end
+
+	private
 
 	def set_ordered_parameters
 		@order = []
-		FIELDS.each do |f|
+		ORDERED_FIELD.each do |f|
 			@order << f.parameterize.gsub("company-s-", "company-")
 		end
 		logger.info 'Order is '

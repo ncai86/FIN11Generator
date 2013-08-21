@@ -1,9 +1,13 @@
 
-<h3>FIN11 Generator</h3>
+<div class="span12">
+	<h3 style="text-align:center;">FIN11 Generator</h3>
+</div>
 </br>
 <%= form_tag add_record_configuration_fields_path, id: "generator_form" do %>
 <div class="form-container">
+
 	<div class="span6">
+
 		<table align="center">
 			<tr>
 				<td>
@@ -299,12 +303,17 @@
 			</tr>
 		</table>	
 	</div>
+</div>
+<div class="button-container">
+	<ul class="nav nav-pills span12">
+		<li class="nav-item"><%= submit_tag "Add Record", {name: 'blah', class: "btn btn-primary"} %></li>
+		<% end %>
+		<li class="nav-item"><%= button_to "Clear Records", clear_records_configuration_fields_path, {class: "btn btn-warning"} %></li>
+		<li class="nav-item"><%= button_to "Generate FIN11", clear_records_configuration_fields_path, {class: "btn btn-success"} %></li>
+	</ul>
+</div>
 
-</div>
-<div class="span12">
-	<%= submit_tag "Add Record", name: 'blah' %>
-</div>
-<% end %>
+
 
 <%= render partial: "records" %>
 
