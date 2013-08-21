@@ -33,6 +33,7 @@ end
 gem 'remotipart', '~> 1.0'
 gem 'jquery-rails'
 gem 'gon'
+gem 'dalli'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
