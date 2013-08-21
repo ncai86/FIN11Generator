@@ -1,84 +1,18 @@
-<div align="center" id="tableContainer" class="tableContainer" >
-	<table width="900px">
+<div align="center" id="tableContainer" class="table-container" >
+	<table cellpadding="10" cellspacing="0" width="900px" class="content-table">
 		<thead class="fixedHeader">
 			<tr class="alternateRow">
 				<th width="5%">No.</th>
-				<th>FIN11 Details</th>
+				<th align="left">FIN11 Details</th>
 			</tr>
 		</thead>
-	</table>
-	<table cellpadding="10" cellspacing="0" width="900px" class="contentTable">
-		<tr class="normalRow">
-				<td width="5%">1.</td>
-				<td width>Cell Content 2Cell Content 2Cell Content 2Cell Content 2Cell Content 2Cell Content 2Cell Content 2Cell Content 2Cell Content 2Cell Content 2Cell Content 2Cell Content 2Cell Content 2Cell Content 2Cell Content 2Cell Content 2Cell Content 2Cell Content 2</td>
+		<tbody>
+			<% @display_records.each_with_index do |record, index| %>
+			<tr>
+				<td width="5%"><%= "#{(index + 1)}." %></td>
+				<td align="left"><%= record %></td>
 			</tr>
-			<tr class="normalRow">
-				<td>1.</td>
-				<td>Cell Content 2</td>
-			</tr>
-			<tr class="normalRow">
-				<td>1.</td>
-				<td>Cell Content 2</td>
-			</tr>
-			<tr class="normalRow">
-				<td>1.</td>
-				<td>Cell Content 2</td>
-			</tr>
-			<tr class="normalRow">
-				<td>1.</td>
-				<td>Cell Content 2</td>
-			</tr>
-			<tr class="normalRow">
-				<td>1.</td>
-				<td>Cell Content 2</td>
-			</tr>
-			<tr class="normalRow">
-				<td>1.</td>
-				<td>Cell Content 2</td>
-			</tr>
-			<tr class="normalRow">
-				<td>1.</td>
-				<td>Cell Content 2</td>
-			</tr>
-			<tr class="normalRow">
-				<td>1.</td>
-				<td>Cell Content 2</td>
-			</tr>
-			<tr class="normalRow">
-				<td>1.</td>
-				<td>Cell Content 2</td>
-			</tr>
-			<tr class="normalRow">
-				<td>1.</td>
-				<td>Cell Content 2</td>
-			</tr>
-			<tr class="normalRow">
-				<td>1.</td>
-				<td>Cell Content 2</td>
-			</tr>
-			<tr class="normalRow">
-				<td>1.</td>
-				<td>Cell Content 2</td>
-			</tr>
-			<tr class="normalRow">
-				<td>1.</td>
-				<td>Cell Content 2</td>
-			</tr>
-			<tr class="normalRow">
-				<td>1.</td>
-				<td>Cell Content 2</td>
-			</tr>
-			<tr class="normalRow">
-				<td>1.</td>
-				<td>Cell Content 2</td>
-			</tr>
-			<tr class="normalRow">
-				<td>1.</td>
-				<td>Cell Content 2</td>
-			</tr>
-			<tr class="normalRow">
-				<td>1.</td>
-				<td>Cell Content 2</td>
-			</tr>
+			<% end %>
+		</tbody>
 	</table>
 </div>
