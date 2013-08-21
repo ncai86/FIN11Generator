@@ -3,6 +3,8 @@ FIN11Generator::Application.routes.draw do
   resources :configuration_fields, only: [:index] do
     collection do
       post 'add_record'
+      post 'clear_records'
+      post 'generate_file'
       # post 'process_file'
       # get 'download'
     end
