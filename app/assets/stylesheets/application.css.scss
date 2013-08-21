@@ -29,17 +29,14 @@ footer { padding: 25px 0px}
 .container-fluid, .row-fluid{height: 90%}
 
 .form-container {
-    float: none !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+	width: 900px;
+	margin-left: auto;
+    margin-right: auto;
 }
 
 .brand {
 	font-family: 'Raleway', sans-serif;
 }
 
-.btn, .upload-label {
-	font-family: 'Raleway', sans-serif;
-	font-weight: 800;
-}
+
 

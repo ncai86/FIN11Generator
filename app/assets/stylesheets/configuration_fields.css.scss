@@ -2,20 +2,31 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-div.tableContainer {
+div.table-container {
 	clear: both;
 	width: 900px;
 	margin-left: auto;
     margin-right: auto;
-    padding: 20px 0px;
 }
 
-table.contentTable {
+.button-container {
+	width: 900px;
+	margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.button-container ul{
+	margin: 10px 20px !important;
+}
+
+table.content-table {
 	display: table;
+	width: 900px;
 	border-spacing: 2px;
 }
 
-table.contentTable tr {
+table.content-table tr {
    border-bottom: 1px solid #CCCCCC;
 }
 
@@ -25,3 +36,6 @@ div.scrolling {
 	width: 900px;
 }
 
+.nav-item {
+	margin-left: 6px;
+}
