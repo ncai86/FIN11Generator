@@ -1,0 +1,309 @@
+<%= form_tag add_record_configuration_fields_path, id: "generator_form", remote: true do %>
+<div class="form-container">
+
+	<div class="span6">
+
+		<table align="center">
+			<tr>
+				<td>
+					<%= label_tag :"base-currency-code", "Base Currency Code" %>
+				</td>
+				<td>
+					<%= select_tag :"base-currency-code", options_for_select([["Korea", 1]]), name: "fields[base-currency-code]"%>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"fcc-acquirer-id", "FCC Acquirer ID" %>
+				</td>
+				<td>
+					<%= select_tag :"fcc-acquirer-id",  options_for_select([["301", 1]]), name: "fields[fcc-acquirer-id]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"merchant-category-code", "Merchant Category Code" %>
+				</td>
+				<td>
+					<%= text_field_tag :"merchant-category-code", nil ,name: "fields[merchant-category-code]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"point-of-sale-name", "Point of sale name" %>
+				</td>
+				<td>
+					<%= text_field_tag :"point-of-sale-name", nil, name: "fields[point-of-sale-name]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"terminal-id", "Terminal ID" %>
+				</td>
+				<td>
+					<%= text_field_tag :"terminal-id", nil, name: "fields[terminal-id]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"creation-date", "Creation date" %>
+				</td>
+				<td>
+					<%= text_field_tag :"creation-date", nil, name: "fields[creation-date]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"date-of-last-update", "Date of last update" %>
+				</td>
+				<td>
+					<%= text_field_tag :"date-of-last-update", nil, name: "fields[date-of-last-update]"  %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"terminal-status", "Terminal Status" %>
+				</td>
+				<td>
+					<%= text_field_tag :"terminal-status", nil, name: "fields[terminal-status]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"pos-contact-name", "POS Contact Name" %>
+				</td>
+				<td>
+					<%= text_field_tag :"pos-contact-name", nil, name: "fields[pos-contact-name]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"point-of-sale-telephone", "Point of sale telephone" %>
+				</td>
+				<td>
+					<%= text_field_tag :"point-of-sale-telephone", nil, name: "fields[point-of-sale-telephone]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"company-legal-name", "Company's Legal Name" %>
+				</td>
+				<td>
+					<%= text_field_tag :"company-legal-name", nil, name: "fields[company-legal-name]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"company-address", "Company's Address" %>
+				</td>
+				<td>
+					<%= text_field_tag :"company-address", nil, name: "fields[company-address]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"contact-name", "Contact Name" %>
+				</td>
+				<td>
+					<%= text_field_tag :"contact-name", nil, name: "fields[contact-name]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"company-telephone", "Company's telephone" %>
+				</td>
+				<td>
+					<%= text_field_tag :"company-telephone", nil, name: "fields[company-telephone]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"company-fax", "Company's fax number" %>
+				</td>
+				<td>
+					<%= text_field_tag :"company-fax", nil, name: "fields[company-fax]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"company-email", "Company's Email" %>
+				</td>
+				<td>
+					<%= text_field_tag :"company-email", nil, name: "fields[company-email" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"terminal-manager", "Terminal Manager" %>
+				</td>
+				<td>
+					<%= text_field_tag :"terminal-manager", nil, name: "fields[terminal-manager]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"company-city", "Company's City" %>
+				</td>
+				<td>
+					<%= text_field_tag :"company-city", nil, name: "fields[company-city]" %>
+				</td>
+			</tr>
+		</table>		
+	</div>
+	<div class="span6">
+		<table align="center">
+			<tr>
+				<td>
+					<%= label_tag :version, "Version" %>
+				</td>
+				<td>
+					<%= text_field_tag :version, nil, name: "fields[version]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"merchant-id", "Merchant ID" %>
+				</td>
+				<td>
+					<%= text_field_tag :"merchant-id", nil, name: "fields[merchant-id]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"point-of-sale-country", "Point of sale country" %>
+				</td>
+				<td>
+					<%= text_field_tag :"point-of-sale-country", nil, name: "fields[point-of-sale-country]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"company-country", "Company's country" %>
+				</td>
+				<td>
+					<%= text_field_tag :"company-country", nil, name: "fields[company-country]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"installation-date", "Installation date" %>
+				</td>
+				<td>
+					<%= text_field_tag :"installation-date", nil, name: "fields[installation-date]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"model-of-pos", "Manufacturer/model of the POS" %>
+				</td>
+				<td>
+					<%= text_field_tag :"model-of-pos", nil, name: "fields[model-of-pos]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"point-of-sale-address", "Point of sale address" %>
+				</td>
+				<td>
+					<%= text_field_tag :"point-of-sale-address", nil, name: "fields[point-of-sale-address]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"point-of-sale-city", "Point of sale city" %>
+				</td>
+				<td>
+					<%= text_field_tag :"point-of-sale-city", nil, name: "fields[point-of-sale-city]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"point-of-sale-province", "Point of sale province" %>
+				</td>
+				<td>
+					<%= text_field_tag :"point-of-sale-province", nil, name: "fields[point-of-sale-province]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"point-of-sale-post-code", "Point of sale post code" %>
+				</td>
+				<td>
+					<%= text_field_tag :"point-of-sale-post-code", nil, name: "fields[point-of-sale-post-code]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"point-of-sale-fax", "Point of sale fax number" %>
+				</td>
+				<td>
+					<%= text_field_tag :"point-of-sale-fax", nil, name: "fields[point-of-sale-fax]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"point-of-sale-email", "Point of Sale email" %>
+				</td>
+				<td>
+					<%= text_field_tag :"point-of-sale-email", nil, name: "fields[point-of-sale-email]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"company-province", "Company's province" %>
+				</td>
+				<td>
+					<%= text_field_tag :"company-province", nil, name: "fields[company-province]"%>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"company-post-code", "Company's post code" %>
+				</td>
+				<td>
+					<%= text_field_tag :"company-post-code", nil, name: "fields[company-post-code]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"vat-number", "VAT Number" %>
+				</td>
+				<td>
+					<%= text_field_tag :"vat-number", nil, name: "fields[vat-number]"  %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"bank-id", "Bank ID" %>
+				</td>
+				<td>
+					<%= text_field_tag :"bank-id", nil, name: "fields[bank-id]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"bank-agency-code", "Bank Agency Code" %>
+				</td>
+				<td>
+					<%= text_field_tag :"bank-agency-code", nil, name: "fields[bank-agency-code]" %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= label_tag :"bank-account", "Bank Account" %>
+				</td>
+				<td>
+					<%= text_field_tag :"bank-account", nil, name: "fields[bank-account]" %>
+				</td>
+			</tr>
+		</table>	
+	</div>
+</div>
+<div class="button-container">
+	<ul class="nav nav-pills span12">
+		<li class="nav-item"><%= submit_tag "Add Record", {class: "btn btn-primary"} %></li>
+		<li class="nav-item"><%= button_tag("Reset Form", type: "button", class: "btn") %></li> 
+		<!-- TO DO JQUERY RESET FORM -->
+	</ul>	
+</div>
+<% end %>

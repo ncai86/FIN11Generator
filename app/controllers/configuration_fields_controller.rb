@@ -42,11 +42,13 @@ class ConfigurationFieldsController < ApplicationController
 		#e.g. ;;;0000000;;; 
 		# if records key is nil, initialize collated variable.
 		# else collated variable set to cached records value
-
 		Rails.cache.read("records_#{ip_identifer}").nil? ? collated = [] : collated = Rails.cache.read("records_#{ip_identifer}")
+		
 		# rewrite collated value to records key after adding to FIN11 record string to collated array
 		Rails.cache.write("records_#{ip_identifer}", collated << record)
 		logger.info Rails.cache.read("records_#{ip_identifer}")
+
+		@add_record = [collated.size.to_s, record]
 		
 		# order.each do |ordered_param|
 		# 	fields
@@ -63,8 +65,6 @@ class ConfigurationFieldsController < ApplicationController
 
 		# 	logger.info ""
 		# end
-
-		redirect_to root_url
 	end
 
 	def clear_records
@@ -74,6 +74,10 @@ class ConfigurationFieldsController < ApplicationController
 
 		redirect_to root_url
 	end
+
+	def generate_file
+	end
+
 
 	private
 
