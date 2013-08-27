@@ -15,3 +15,19 @@
 //= require bootstrap
 //= require_tree .
 //= require jquery.remotipart
+
+function getDate(){
+	var date = new Date();
+	var year = date.getFullYear().toString();
+	var month = ( '0' + (date.getMonth()+1) ).slice( -2 );
+	var day = date.getDate().toString();
+	return ( year + month + day);
+}
+
+function getTime(){
+	var date = new Date();
+	var hour = date.getHours().toString();
+	var min = date.getMinutes().toString();
+	var sec = date.getSeconds().toString();
+	return ( hour + min + sec );
+}
