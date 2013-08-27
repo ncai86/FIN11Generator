@@ -7,10 +7,23 @@
 <%= render partial: "fields" %>
 
 <div class="button-container">
-<ul class="nav nav-pills span12">
-	<li class="nav-item"><%= button_to('Clear All Listed Records', clear_records_configuration_fields_path, {:method => "post", :remote => true, :class => "btn btn-warning"}) %></li>
-	<li class="nav-item"><%= button_to('Generate File', generate_file_configuration_fields_path, {:method => "post", :remote => true, :class => "btn btn-success"}) %></li>
-</ul>
+	<ul class="nav nav-pills span12">
+		<li class="nav-item"><%= button_tag "Add Record", {class: "btn btn-primary", id: "add-record"} %></li>
+		<li class="nav-item"><%= button_tag("Reset Form", type: "button", class: "btn", id: "reset-button") %></li> 
+		<li class="nav-item"><%= button_to('Clear All Listed Records', clear_records_configuration_fields_path, {:method => "post", :remote => true, :class => "btn btn-warning"}) %></li>
+		<li class="nav-item">
+			<%= form_tag generate_file_configuration_fields_path do %>
+			<%= hidden_field_tag "file_date" %>
+			<%= hidden_field_tag "file_time" %>
+			<%= hidden_field_tag "file_base_currency_code" %>
+			<%= hidden_field_tag "file_fcc_acquirer_id" %>
+			<%= hidden_field_tag "file_version" %>
+			<%= hidden_field_tag "file_sequence_no" %>
+
+			<%= submit_tag('Generate File', class: "btn btn-success", id: "generate_file") %>
+			<% end %>
+		</li>
+	</ul>
 </div>
 <%#= button_to('TEST', clear_records_configuration_fields_path,
 :method => "post", :remote => true) %>
