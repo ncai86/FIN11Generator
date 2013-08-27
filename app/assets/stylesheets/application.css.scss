@@ -38,5 +38,17 @@ footer { padding: 25px 0px}
 	font-family: 'Raleway', sans-serif;
 }
 
+input, select {
+	width: 150px;
+}
 
 
+table.form-fields{
+    table-layout: fixed;
+    width: 80%;
+}
+
+table.form-fields th, table.form-fields td {
+    overflow: hidden;
+    width: 170px;
+}
