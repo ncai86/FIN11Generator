@@ -68,14 +68,47 @@ class ConfigurationFieldsController < ApplicationController
 	end
 
 	def clear_records
-		logger.info Rails.cache.read("records_#{ip_identifer}")
 		Rails.cache.write("records_#{ip_identifer}", nil)
-		logger.info Rails.cache.read("records_#{ip_identifer}")
-
-		redirect_to root_url
+		# redirect_to root_url
 	end
 
 	def generate_file
+		filename = "FIN11" + params[:file_date] + params[:file_time] + params[:file_base_currency_code] + "001" + params[:file_fcc_acquirer_id] + params[:file_version] + ".DAT"
+		# records = params[:records]
+		content = ""
+		f = File.open("tmp/#{filename}", "w+")
+		f.binmode
+
+		content += "bahhhhhh" + "\r\n"
+		content += "bahhhhhhasdasd" + "\r\n"
+		f.write content
+		f.close
+
+		r = File.open("tmp/#{filename}", "r")
+		send_data r.read, filename: filename
+		r.close
+
+		File.delete("tmp/#{filename}")
+
+		# f = File.open("tmp/test.txt", "w+")
+		# f.binmode
+		# f.puts('test!')
+		# f.puts "baana!"
+		# f.close
+		# send_file
+
+		# File.delete("tmp/test.txt")
+
+		# begin
+		# 	f = File.open("tmp/test.txt", "w+")
+		# 	f.binmode
+		# 	f.write('test!')
+		# 	f.close
+		# ensure
+		# 	send_file "tmp/test.txt", :x_sendfile => true
+		# end
+		# b = File.expand_path("tmp/test.txt")
+		# FileUtils.remove_file(b)
 	end
 
 
