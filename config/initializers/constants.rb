@@ -37,7 +37,6 @@ FIELDS = [
 	"Terminal Status"]
 
 ORDERED_FIELD = [
-	"Version",
 	"Merchant ID",
 	"Merchant Category Code",
 	"Point of sale name",
