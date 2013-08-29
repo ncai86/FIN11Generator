@@ -1,1 +1,3 @@
-$("#tableContainer tbody").append("<tr class='record-row'><td><%= escape_javascript(@add_record[0]) %></td><td><%= escape_javascript(@add_record[1]) %></td></tr>")
+$("#tableContainer tbody").append("<tr class='record-row'><td><%= escape_javascript(@add_record[0]) %></td><td><%= escape_javascript(@add_record[1]) %></td></tr>");
+$("#added-record-no").text("<%= escape_javascript(@record_sequence_no) %>");
+$(".flash").fadeIn().delay(750).fadeOut();
