@@ -7,8 +7,8 @@
 			</tr>
 		</thead>
 		<tbody>
-			<% unless @display_records.nil? %>
-				<% @display_records.each_with_index do |record, index| %>
+			<% unless @records.nil? %>
+				<% @records.each_with_index do |record, index| %>
 				<tr class="record-row">
 					<td width="5%"><%= "#{(index + 1)}." %></td>
 					<td align="left"><%= record %></td>
