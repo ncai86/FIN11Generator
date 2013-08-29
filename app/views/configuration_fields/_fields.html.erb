@@ -33,7 +33,7 @@
 						<%= label_tag :"merchant-category-code", "Merchant Category Code" %>
 					</td>
 					<td>
-						<%= text_field_tag :"merchant-category-code", nil ,name: "fields[merchant-category-code]" %>
+						<%= select_tag :"merchant-category-code", options_for_select((1..5).map{|n| ["0#{n}", "0#{n}"]}), name: "fields[merchant-category-code]" %>
 					</td>
 				</tr>
 				<tr>
@@ -41,7 +41,7 @@
 						<%= label_tag :"point-of-sale-name", "Point of sale name" %>
 					</td>
 					<td>
-						<%= text_field_tag :"point-of-sale-name", nil, name: "fields[point-of-sale-name]" %>
+						<%= text_field_tag :"point-of-sale-name", nil, maxlength: 64, name: "fields[point-of-sale-name]" %>
 					</td>
 				</tr>
 				<tr>
@@ -49,7 +49,7 @@
 						<%= label_tag :"terminal-id", "Terminal ID" %>
 					</td>
 					<td>
-						<%= text_field_tag :"terminal-id", nil, name: "fields[terminal-id]" %>
+						<%= text_field_tag :"terminal-id", nil, maxlength: 8, name: "fields[terminal-id]" %>
 					</td>
 				</tr>
 				<tr>
@@ -57,7 +57,7 @@
 						<%= label_tag :"creation-date", "Creation date" %>
 					</td>
 					<td>
-						<%= text_field_tag :"creation-date", Date.today, name: "fields[creation-date]" %>
+						<%= text_field_tag :"creation-date", Date.today.to_s.gsub("-",""), maxlength: 8, name: "fields[creation-date]" %>
 					</td>
 				</tr>
 				<tr>
@@ -65,7 +65,7 @@
 						<%= label_tag :"date-of-last-update", "Date of last update" %>
 					</td>
 					<td>
-						<%= text_field_tag :"date-of-last-update", Date.today, name: "fields[date-of-last-update]"  %>
+						<%= text_field_tag :"date-of-last-update", Date.today.to_s.gsub("-",""), maxlength: 8, name: "fields[date-of-last-update]"  %>
 					</td>
 				</tr>
 				<tr>
@@ -73,7 +73,7 @@
 						<%= label_tag :"terminal-status", "Terminal Status" %>
 					</td>
 					<td>
-						<%= text_field_tag :"terminal-status", nil, name: "fields[terminal-status]" %>
+						<%= select_tag :"terminal-status", options_for_select([["Created", "C"], ["Installed", "I"], ["Deactivated", "D"]]), name: "fields[terminal-status]" %>
 					</td>
 				</tr>
 				<tr>
@@ -81,7 +81,7 @@
 						<%= label_tag :"pos-contact-name", "POS Contact Name" %>
 					</td>
 					<td>
-						<%= text_field_tag :"pos-contact-name", nil, name: "fields[pos-contact-name]" %>
+						<%= text_field_tag :"pos-contact-name", nil, maxlength: 50, name: "fields[pos-contact-name]" %>
 					</td>
 				</tr>
 				<tr>
@@ -89,7 +89,7 @@
 						<%= label_tag :"point-of-sale-telephone", "Point of sale telephone" %>
 					</td>
 					<td>
-						<%= text_field_tag :"point-of-sale-telephone", nil, name: "fields[point-of-sale-telephone]" %>
+						<%= text_field_tag :"point-of-sale-telephone", nil, maxlength: 20, name: "fields[point-of-sale-telephone]" %>
 					</td>
 				</tr>
 				<tr>
@@ -97,7 +97,7 @@
 						<%= label_tag :"company-legal-name", "Company's Legal Name" %>
 					</td>
 					<td>
-						<%= text_field_tag :"company-legal-name", nil, name: "fields[company-legal-name]" %>
+						<%= text_field_tag :"company-legal-name", nil, maxlength: 64, name: "fields[company-legal-name]" %>
 					</td>
 				</tr>
 				<tr>
@@ -105,7 +105,7 @@
 						<%= label_tag :"company-address", "Company's Address" %>
 					</td>
 					<td>
-						<%= text_field_tag :"company-address", nil, name: "fields[company-address]" %>
+						<%= text_field_tag :"company-address", nil, maxlength: 50, name: "fields[company-address]" %>
 					</td>
 				</tr>
 				<tr>
@@ -113,7 +113,7 @@
 						<%= label_tag :"contact-name", "Contact Name" %>
 					</td>
 					<td>
-						<%= text_field_tag :"contact-name", nil, name: "fields[contact-name]" %>
+						<%= text_field_tag :"contact-name", nil, maxlength: 50, name: "fields[contact-name]" %>
 					</td>
 				</tr>
 				<tr>
@@ -121,7 +121,7 @@
 						<%= label_tag :"company-telephone", "Company's telephone" %>
 					</td>
 					<td>
-						<%= text_field_tag :"company-telephone", nil, name: "fields[company-telephone]" %>
+						<%= text_field_tag :"company-telephone", nil, maxlength: 20, name: "fields[company-telephone]" %>
 					</td>
 				</tr>
 				<tr>
@@ -129,7 +129,7 @@
 						<%= label_tag :"company-fax", "Company's fax number" %>
 					</td>
 					<td>
-						<%= text_field_tag :"company-fax", nil, name: "fields[company-fax]" %>
+						<%= text_field_tag :"company-fax", nil, maxlength: 20, name: "fields[company-fax]" %>
 					</td>
 				</tr>
 				<tr>
@@ -137,7 +137,7 @@
 						<%= label_tag :"company-email", "Company's Email" %>
 					</td>
 					<td>
-						<%= text_field_tag :"company-email", nil, name: "fields[company-email" %>
+						<%= text_field_tag :"company-email", nil, maxlength: 50, name: "fields[company-email]" %>
 					</td>
 				</tr>
 				<tr>
@@ -145,7 +145,7 @@
 						<%= label_tag :"terminal-manager", "Terminal Manager" %>
 					</td>
 					<td>
-						<%= text_field_tag :"terminal-manager", nil, name: "fields[terminal-manager]" %>
+						<%= text_field_tag :"terminal-manager", nil, maxlength: 64, name: "fields[terminal-manager]" %>
 					</td>
 				</tr>
 				<tr>
@@ -153,7 +153,7 @@
 						<%= label_tag :"company-city", "Company's City" %>
 					</td>
 					<td>
-						<%= text_field_tag :"company-city", nil, name: "fields[company-city]" %>
+						<%= text_field_tag :"company-city", nil, maxlength: 32, name: "fields[company-city]" %>
 					</td>
 				</tr>
 			</table>		
@@ -165,7 +165,7 @@
 						<%= label_tag :"merchant-id", "Merchant ID" %>
 					</td>
 					<td>
-						<%= text_field_tag :"merchant-id", nil, name: "fields[merchant-id]" %>
+						<%= text_field_tag :"merchant-id", nil, maxlength: 15, name: "fields[merchant-id]"%>
 					</td>
 				</tr>
 				<tr>
@@ -173,7 +173,7 @@
 						<%= label_tag :"point-of-sale-country", "Point of sale country" %>
 					</td>
 					<td>
-						<%= text_field_tag :"point-of-sale-country", nil, name: "fields[point-of-sale-country]" %>
+						<%= select_tag :"point-of-sale-country", options_for_select(@countries, selected: ["KR", "Korea, Republic of"]), name: "fields[point-of-sale-country]" %>
 					</td>
 				</tr>
 				<tr>
@@ -181,7 +181,7 @@
 						<%= label_tag :"company-country", "Company's country" %>
 					</td>
 					<td>
-						<%= text_field_tag :"company-country", nil, name: "fields[company-country]" %>
+						<%= select_tag :"company-country", options_for_select(@countries, selected: ["KR", "Korea, Republic of"]), name: "fields[company-country]" %>
 					</td>
 				</tr>
 				<tr>
@@ -189,7 +189,7 @@
 						<%= label_tag :"installation-date", "Installation date" %>
 					</td>
 					<td>
-						<%= text_field_tag :"installation-date", Date.today, name: "fields[installation-date]" %>
+						<%= text_field_tag :"installation-date", Date.today.to_s.gsub("-",""), maxlength: 8, name: "fields[installation-date]" %>
 					</td>
 				</tr>
 				<tr>
@@ -197,7 +197,7 @@
 						<%= label_tag :"model-of-pos", "Manufacturer/model of the POS" %>
 					</td>
 					<td>
-						<%= text_field_tag :"model-of-pos", nil, name: "fields[model-of-pos]" %>
+						<%= text_field_tag :"model-of-pos", nil, maxlength: 50, name: "fields[model-of-pos]" %>
 					</td>
 				</tr>
 				<tr>
@@ -205,7 +205,7 @@
 						<%= label_tag :"point-of-sale-address", "Point of sale address" %>
 					</td>
 					<td>
-						<%= text_field_tag :"point-of-sale-address", nil, name: "fields[point-of-sale-address]" %>
+						<%= text_field_tag :"point-of-sale-address", nil, maxlength: 50, name: "fields[point-of-sale-address]" %>
 					</td>
 				</tr>
 				<tr>
@@ -213,7 +213,7 @@
 						<%= label_tag :"point-of-sale-city", "Point of sale city" %>
 					</td>
 					<td>
-						<%= text_field_tag :"point-of-sale-city", nil, name: "fields[point-of-sale-city]" %>
+						<%= text_field_tag :"point-of-sale-city", nil, maxlength: 32,  name: "fields[point-of-sale-city]" %>
 					</td>
 				</tr>
 				<tr>
@@ -221,7 +221,7 @@
 						<%= label_tag :"point-of-sale-province", "Point of sale province" %>
 					</td>
 					<td>
-						<%= text_field_tag :"point-of-sale-province", nil, name: "fields[point-of-sale-province]" %>
+						<%= text_field_tag :"point-of-sale-province", nil, maxlength: 10, name: "fields[point-of-sale-province]" %>
 					</td>
 				</tr>
 				<tr>
@@ -229,7 +229,7 @@
 						<%= label_tag :"point-of-sale-post-code", "Point of sale post code" %>
 					</td>
 					<td>
-						<%= text_field_tag :"point-of-sale-post-code", nil, name: "fields[point-of-sale-post-code]" %>
+						<%= text_field_tag :"point-of-sale-post-code", nil, maxlength: 20, name: "fields[point-of-sale-post-code]" %>
 					</td>
 				</tr>
 				<tr>
@@ -237,7 +237,7 @@
 						<%= label_tag :"point-of-sale-fax", "Point of sale fax number" %>
 					</td>
 					<td>
-						<%= text_field_tag :"point-of-sale-fax", nil, name: "fields[point-of-sale-fax]" %>
+						<%= text_field_tag :"point-of-sale-fax", nil, maxlength: 20, name: "fields[point-of-sale-fax]" %>
 					</td>
 				</tr>
 				<tr>
@@ -245,7 +245,7 @@
 						<%= label_tag :"point-of-sale-email", "Point of Sale email" %>
 					</td>
 					<td>
-						<%= text_field_tag :"point-of-sale-email", nil, name: "fields[point-of-sale-email]" %>
+						<%= text_field_tag :"point-of-sale-email", nil, maxlength: 50, name: "fields[point-of-sale-email]" %>
 					</td>
 				</tr>
 				<tr>
@@ -253,7 +253,7 @@
 						<%= label_tag :"company-province", "Company's province" %>
 					</td>
 					<td>
-						<%= text_field_tag :"company-province", nil, name: "fields[company-province]"%>
+						<%= text_field_tag :"company-province", nil, maxlength: 10, name: "fields[company-province]"%>
 					</td>
 				</tr>
 				<tr>
@@ -261,7 +261,7 @@
 						<%= label_tag :"company-post-code", "Company's post code" %>
 					</td>
 					<td>
-						<%= text_field_tag :"company-post-code", nil, name: "fields[company-post-code]" %>
+						<%= text_field_tag :"company-post-code", nil, maxlength: 20, name: "fields[company-post-code]" %>
 					</td>
 				</tr>
 				<tr>
@@ -269,7 +269,7 @@
 						<%= label_tag :"vat-number", "VAT Number" %>
 					</td>
 					<td>
-						<%= text_field_tag :"vat-number", nil, name: "fields[vat-number]"  %>
+						<%= text_field_tag :"vat-number", nil, maxlength: 20, name: "fields[vat-number]"  %>
 					</td>
 				</tr>
 				<tr>
@@ -277,15 +277,15 @@
 						<%= label_tag :"bank-id", "Bank ID" %>
 					</td>
 					<td>
-						<%= text_field_tag :"bank-id", nil, name: "fields[bank-id]" %>
+						<%= text_field_tag :"bank-id", nil, maxlength: 5, name: "fields[bank-id]" %>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<%= label_tag :"bank-agency-code", "Bank Agency Code" %>
+						<%= label_tag :"bank-agency-code", "Bank Agency Code(Sort Code)" %>
 					</td>
 					<td>
-						<%= text_field_tag :"bank-agency-code", nil, name: "fields[bank-agency-code]" %>
+						<%= text_field_tag :"bank-agency-code", nil, maxlength: 10, name: "fields[bank-agency-code]" %>
 					</td>
 				</tr>
 				<tr>
@@ -293,7 +293,7 @@
 						<%= label_tag :"bank-account", "Bank Account" %>
 					</td>
 					<td>
-						<%= text_field_tag :"bank-account", nil, name: "fields[bank-account]" %>
+						<%= text_field_tag :"bank-account", nil, maxlength: 21, name: "fields[bank-account]" %>
 					</td>
 				</tr>
 			</table>	
