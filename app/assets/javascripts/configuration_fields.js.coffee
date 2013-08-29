@@ -12,14 +12,21 @@ $("#reset-button").on "click", ->
 
 # Set date & time
 $("#generate_file").on "click", ->
-	$("#file_date").val(getDate())
-	$("#file_time").val(getTime())
-	$("#file_base_currency_code").val($("#base-currency-code").val())
-	$("#file_fcc_acquirer_id").val($("#fcc-acquirer-id").val())
-	$("#file_version").val($("#version").val())
-	$("#file_sequence_no").val($("#sequence-no").val())
-
+	if $(".record-row").size() <= 0
+		$("#no-record-error").html("<div class='alert fade in alert-error' id='no-record-error'>No Records: Please add records to generate file</div>")
+		return false
+	else
+		$("#no-record-error").html("<div id='no-record-error'></div>")
+		$("#file_date").val(getDate())
+		$("#file_time").val(getTime())
+		$("#file_base_currency_code").val($("#base-currency-code").val())
+		$("#file_fcc_acquirer_id").val($("#fcc-acquirer-id").val())
+		$("#file_version").val($("#version").val())
+	
 # submit form
 $("#add-record").on "click", -> 
 	$("#generator_form").submit()
+
+# Datepicker for date input fields
+$("#creation-date, #installation-date, #date-of-last-update").datepicker({ dateFormat: 'yymmdd' })
 
