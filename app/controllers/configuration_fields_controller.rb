@@ -1,7 +1,6 @@
 class ConfigurationFieldsController < ApplicationController
+	before_filter :cached_records, only: [:index, :add_record, :generate_file]
 
-
-	RECORDS = []
 	MERCHANT_ID_CHARACTERS = 15
 
 	def index
@@ -10,8 +9,8 @@ class ConfigurationFieldsController < ApplicationController
 		# fields.each_index{ |i| (even << fields[i] if i % 2 == 0) }
 		# @left_half = even
 		# @right_half = fields - @left_half
+		@countries = Country.all
 		gon.hiddenFields = ConfigurationField.disabled_fields.collect{|f| 	f.name.parameterize.gsub("company-s-","company-")}
-		@display_records = Rails.cache.read("records_#{ip_identifer}")
 	end
 
 	def add_record
@@ -42,8 +41,21 @@ class ConfigurationFieldsController < ApplicationController
 		#e.g. ;;;0000000;;; 
 		# if records key is nil, initialize collated variable.
 		# else collated variable set to cached records value
-		Rails.cache.read("records_#{ip_identifer}").nil? ? collated = [] : collated = Rails.cache.read("records_#{ip_identifer}")
-		
+		# begin
+		# 	if @records.nil?
+		# 		collated = []
+		# 		record_sequence_no = (collated.size + 1).to_s
+		# 		record += "0000000" + record_sequence_no
+		# 	else
+		# 		collated = @records
+		# 		record_sequence_no = (collated.size + 1).to_s
+		# 		record += ("0000000" + record_sequence_no).last(7)
+		# 	end
+		# end
+		@records.nil? ? collated = [] : collated = @records
+		@record_sequence_no = (("0000000") + (collated.size + 1).to_s).last(7)
+		record += @record_sequence_no
+
 		# rewrite collated value to records key after adding to FIN11 record string to collated array
 		Rails.cache.write("records_#{ip_identifer}", collated << record)
 		logger.info Rails.cache.read("records_#{ip_identifer}")
@@ -73,23 +85,33 @@ class ConfigurationFieldsController < ApplicationController
 	end
 
 	def generate_file
-		filename = "FIN11" + params[:file_date] + params[:file_time] + params[:file_base_currency_code] + "001" + params[:file_fcc_acquirer_id] + params[:file_version] + ".DAT"
-		# records = params[:records]
-		content = ""
-		f = File.open("tmp/#{filename}", "w+")
-		f.binmode
+		unless @records.nil?
+			filename = "FIN11" + params[:file_date] + params[:file_time] + params[:file_base_currency_code] + params[:file_sequence_no] + params[:file_fcc_acquirer_id] + params[:file_version] + ".DAT"
+			content = ""
 
-		content += "bahhhhhh" + "\r\n"
-		content += "bahhhhhhasdasd" + "\r\n"
-		f.write content
-		f.close
+			f = File.open("tmp/#{filename}", "w+")
+			f.binmode
+			
+			content += "VOL1" + params[:file_date] + params[:file_time] + "\r\n"
+			@records.each do |record|
+				content += record + "\r\n"
+			end
+			content += "UTL1" + ("0000000" + @records.size.to_s).last(7)
+			f.write content
+			f.close
+			#### closing written file
 
-		r = File.open("tmp/#{filename}", "r")
-		send_data r.read, filename: filename
-		r.close
+			#### opening file to send data
+			r = File.open("tmp/#{filename}", "r")
+			send_data r.read, filename: filename
+			r.close
 
-		File.delete("tmp/#{filename}")
-
+			# Deletion of tmp filename
+			File.delete("tmp/#{filename}")
+		else
+			flash[:error] = "no records"
+			redirect_to root_url
+		end
 		# f = File.open("tmp/test.txt", "w+")
 		# f.binmode
 		# f.puts('test!')
@@ -113,6 +135,11 @@ class ConfigurationFieldsController < ApplicationController
 
 
 	private
+
+	def cached_records
+		@records = Rails.cache.read("records_#{ip_identifer}") unless Rails.cache.read("records_#{ip_identifer}").nil?
+	end
+
 
 	def set_ordered_parameters
 		@order = []
