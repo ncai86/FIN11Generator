@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require jquery-ui-1.10.3.custom.css
  *= require_tree .
  */
 $navbarBackground: #2A3688;
@@ -39,16 +40,16 @@ footer { padding: 25px 0px}
 }
 
 input, select {
-	width: 150px;
+	width: 200px;
 }
 
 
 table.form-fields{
     table-layout: fixed;
-    width: 80%;
+    width: 100%;
 }
 
 table.form-fields th, table.form-fields td {
     overflow: hidden;
-    width: 170px;
+    width: 200px;
 }
