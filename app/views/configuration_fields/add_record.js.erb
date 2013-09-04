@@ -1,3 +1,4 @@
-$("#tableContainer tbody").append("<tr class='record-row'><td><%= escape_javascript(@add_record[0]) %></td><td><%= escape_javascript(@add_record[1]) %></td></tr>");
-$("#added-record-no").text("<%= escape_javascript(@record_sequence_no) %>");
-$(".flash").fadeIn().delay(750).fadeOut();
+$("#records-partial").html("<%= escape_javascript(render partial: 'records')%>" );
+$("#added-record-no").text("<%= escape_javascript(@records.size.to_s) %>");
+$("#record-mid").text("<%= escape_javascript(@mid) %>");
+$("#record-tid").text("<%= escape_javascript(@tid) %>");
