@@ -20,13 +20,13 @@ div.table-container {
 	margin: 0px 0px !important;
 }
 
-table.content-table {
+table#content-table {
 	display: table;
 	width: 900px;
 	border-spacing: 2px;
 }
 
-table.content-table tr {
+table#content-table tr {
    border-bottom: 1px solid #CCCCCC;
 }
 
@@ -41,4 +41,9 @@ table.content-table tr {
 
 .flash{
 	line-height: 30px;
+	font-weight:bold;
+}
+
+#record-mid, #record-tid{
+	color: red;
 }
