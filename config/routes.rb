@@ -4,6 +4,7 @@ FIN11Generator::Application.routes.draw do
     collection do
       post 'add_record'
       post 'clear_records'
+      post 'delete_record'
       post 'generate_file'
       # post 'process_file'
       # get 'download'
