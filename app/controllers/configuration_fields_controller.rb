@@ -1,5 +1,5 @@
 class ConfigurationFieldsController < ApplicationController
-	before_filter :cached_records, only: [:index, :add_record, :generate_file]
+	before_filter :cached_records, only: [:add_record, :delete_record, :generate_file]
 
 	MERCHANT_ID_CHARACTERS = 15
 
@@ -9,18 +9,26 @@ class ConfigurationFieldsController < ApplicationController
 		# fields.each_index{ |i| (even << fields[i] if i % 2 == 0) }
 		# @left_half = even
 		# @right_half = fields - @left_half
+		cached_records
 		@countries = Country.all
 		gon.hiddenFields = ConfigurationField.disabled_fields.collect{|f| 	f.name.parameterize.gsub("company-s-","company-")}
 	end
 
 	def add_record
+		flash[:error] = nil
 		# Gets the constant FIELD that contains the ordered parameters and parameterizes each value
 		set_ordered_parameters
 
 		fields = params[:fields]
+		@mid = fields[:"merchant-id"]
+		@tid = fields[:'terminal-id']
+		if valid_mid_tid?(@mid + @tid) == false
+			return
+		end
+
+
 		# Initialize record
 		record = ""
-
 
 		# looping ordered list
 		# checking if parameters in form is present
@@ -38,28 +46,15 @@ class ConfigurationFieldsController < ApplicationController
 			end
 		end
 
-		#e.g. ;;;0000000;;; 
-		# if records key is nil, initialize collated variable.
-		# else collated variable set to cached records value
-		# begin
-		# 	if @records.nil?
-		# 		collated = []
-		# 		record_sequence_no = (collated.size + 1).to_s
-		# 		record += "0000000" + record_sequence_no
-		# 	else
-		# 		collated = @records
-		# 		record_sequence_no = (collated.size + 1).to_s
-		# 		record += ("0000000" + record_sequence_no).last(7)
-		# 	end
-		# end
 		@records.nil? ? collated = [] : collated = @records
-		@record_sequence_no = (("0000000") + (collated.size + 1).to_s).last(7)
-		record += @record_sequence_no
+		# @record_sequence_no = (("0000000") + (collated.size + 1).to_s).last(7)
+		# record += @record_sequence_no
 
 		# rewrite collated value to records key after adding to FIN11 record string to collated array
 		Rails.cache.write("records_#{ip_identifer}", collated << record)
 		logger.info Rails.cache.read("records_#{ip_identifer}")
-
+		cached_records
+		@index = @records.rindex(record)
 		@add_record = [collated.size.to_s, record]
 		
 		# order.each do |ordered_param|
@@ -81,7 +76,20 @@ class ConfigurationFieldsController < ApplicationController
 
 	def clear_records
 		Rails.cache.write("records_#{ip_identifer}", nil)
+		Rails.cache.write("MID_TID_#{ip_identifer}", nil)
 		# redirect_to root_url
+	end
+
+	def delete_record
+		@deletion_index = params[:index].to_i
+		mid_tid_records = Rails.cache.read("MID_TID_#{ip_identifer}")
+		# Rails.cache.write("records_#{ip_identifer}", @records.reject{|r| logger.info r; logger.info "record[#{@records.rindex(r)}== #{@deletion_index}] #{ @records.rindex(r) == @deletion_index}"; @records.index(r) == @deletion_index })
+		@records.delete_at @deletion_index
+		mid_tid_records.delete_at @deletion_index
+		Rails.cache.write "records_#{ip_identifer}", @records
+		Rails.cache.write "MID_TID_#{ip_identifer}", mid_tid_records
+		#Set @records for re-rendering of records
+		cached_records
 	end
 
 	def generate_file
@@ -93,8 +101,12 @@ class ConfigurationFieldsController < ApplicationController
 			f.binmode
 			
 			content += "VOL1" + params[:file_date] + params[:file_time] + "\r\n"
+
+			record_count = 0
 			@records.each do |record|
-				content += record + "\r\n"
+				record_sequence_no = (("0000000") + (record_count += 1).to_s).last(7) + ";"
+				content += record + record_sequence_no +"\r\n"
+				record 
 			end
 			content += "UTL1" + ("0000000" + @records.size.to_s).last(7)
 			f.write content
@@ -136,10 +148,43 @@ class ConfigurationFieldsController < ApplicationController
 
 	private
 
+	def valid_mid_tid?(mid_tid)
+		#Check if midtid already exists in array
+		mid_tid_records = Rails.cache.read("MID_TID_#{ip_identifer}")
+		if mid_tid_records.nil?
+			mid_tid_records = [mid_tid]
+		else
+			if mid_tid_records.include?(mid_tid)
+				flash[:error] = "MID TID already exists. Change MID or TID"
+				return false
+			else
+				mid_tid_records << mid_tid
+			end
+		end
+		Rails.cache.write("MID_TID_#{ip_identifer}", mid_tid_records, expires_in: 1.hour) if flash[:error].nil?
+		return true
+	end
+
+
 	def cached_records
 		@records = Rails.cache.read("records_#{ip_identifer}") unless Rails.cache.read("records_#{ip_identifer}").nil?
 	end
 
+	# def append_record_sequence_no
+	# 	cached_records #read memcached records to get @records
+	# 	record_count = 0
+	# 	appended_records = []
+	# 	@records.each do |record|
+	# 		record_sequence_no = (("0000000") + (record_count + 1).to_s).last(7) + ";"
+	# 		logger.info record_sequence_no
+	# 		record += record_sequence_no
+	# 		appended_records << record
+	# 		record_count += 1
+	# 	end
+	# 	Rails.cache.write("records_#{ip_identifer}", appended_records)
+	# 	cached_records
+	# 	logger.info @records
+	# end
 
 	def set_ordered_parameters
 		@order = []
