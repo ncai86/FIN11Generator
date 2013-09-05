@@ -64,7 +64,7 @@ ORDERED_FIELD = [
 	"Terminal ID",
 	"Creation date",
 	"Installation date",
-	"Manufacturer/model of the POS",
+	"model of POS",
 	"Bank Agency Code",
 	"Bank Account",
 	"Terminal Manager",
