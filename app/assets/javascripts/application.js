@@ -13,9 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui-1.10.3.custom.js
+//= require jquery.validate
+//= require jquery.validate.additional-methods
 //= require bootstrap
 //= require_tree .
 //= require jquery.remotipart
+
 
 function getDate(){
 	var date = new Date();
