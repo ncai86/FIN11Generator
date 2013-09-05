@@ -22,10 +22,37 @@ $("#generate_file").on "click", ->
 		$("#file_base_currency_code").val($("#base-currency-code").val())
 		$("#file_fcc_acquirer_id").val($("#fcc-acquirer-id").val())
 		$("#file_version").val($("#version").val())
+		$("#filename_form").submit()
+
+# Validate forms
+$("#generator_form").validate()
+$("#filename_form").validate
+  invalidHandler: () ->
+    $("#generate_file_form").submit (e) ->
+  	  e.preventDefault()
+
+
+  submitHandler: ->
+      $("#generate_file_form").unbind('submit').submit()
+
+	
+
 		
 # submit form
 $("#add-record").on "click", -> 
 	$("#generator_form").submit()
+
+#validation class rules
+jQuery.validator.addClassRules
+  digits:
+    digits: true
+
+  required:
+    required: true
+
+  email:
+  	email: true
+
 
 # Datepicker for date input fields
 $("#creation-date, #installation-date, #date-of-last-update").datepicker({ dateFormat: 'yymmdd' })
