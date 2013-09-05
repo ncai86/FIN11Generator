@@ -12,7 +12,7 @@
 		<li class="nav-item"><%= button_tag("Reset Form", type: "button", class: "btn", id: "reset-button") %></li> 
 		<li class="nav-item"><%= button_to('Clear All Listed Records', clear_records_configuration_fields_path, {:method => "post", remote: true, class: "btn btn-warning", confirm: "Are you sure you want to do that?"}) %></li>
 		<li class="nav-item">
-			<%= form_tag generate_file_configuration_fields_path do %>
+			<%= form_tag generate_file_configuration_fields_path, id: "generate_file_form" do %>
 			<%= hidden_field_tag "file_date" %>
 			<%= hidden_field_tag "file_time" %>
 			<%= hidden_field_tag "file_base_currency_code" %>
