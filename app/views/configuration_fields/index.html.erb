@@ -27,20 +27,7 @@
 	<ul class="nav nav-pills span12">
 		<li class="nav-item flash">Added Record: <span id="added-record-no">n/a</span>   MID: <span id="record-mid">n/a</span>   TID: <span id="record-tid">n/a</span></li>
 	</ul>
-<!-- 	<%= form_tag generate_file_configuration_fields_path do %>
-	<ul class="nav nav-pills span12 generate">
-		<%= hidden_field_tag "file_date" %>
-		<%= hidden_field_tag "file_time" %>
-		<%= hidden_field_tag "file_base_currency_code" %>
-		<%= hidden_field_tag "file_fcc_acquirer_id" %>
-		<%= hidden_field_tag "file_version" %>
-		<li class="nav-item">
-			<%= submit_tag('Generate File', class: "btn btn-success", id: "generate_file") %>
-		</li>
-		<li class="nav-item">File Sequence No. <%= select_tag :file_sequence_no, options_for_select((1..10).map{|n| ["00#{n}", "00#{n}".last(3)]}) %></li>
-	</ul>
-	<% end %> -->
-
+	
 </div>
 <%#= button_to('TEST', clear_records_configuration_fields_path,
 :method => "post", :remote => true) %>
