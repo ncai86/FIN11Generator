@@ -4,11 +4,6 @@ class ConfigurationFieldsController < ApplicationController
 	MERCHANT_ID_CHARACTERS = 15
 
 	def index
-		# even = []
-		# fields = ConfigurationField.display
-		# fields.each_index{ |i| (even << fields[i] if i % 2 == 0) }
-		# @left_half = even
-		# @right_half = fields - @left_half
 		cached_records
 		@countries = Country.all
 		gon.hiddenFields = ConfigurationField.disabled_fields.collect{|f| 	f.name.parameterize.gsub("company-s-","company-")}
@@ -56,22 +51,6 @@ class ConfigurationFieldsController < ApplicationController
 		cached_records
 		@index = @records.rindex(record)
 		@add_record = [collated.size.to_s, record]
-		
-		# order.each do |ordered_param|
-		# 	fields
-
-		# fields.each do |k,v|
-		# 	k = k.underscore
-		# 	logger.info k
-		# 	if k == 'merchant_id'
-		# 		k = '0' * (MERCHANT_ID_CHARACTERS - v.length) + v
-		# 	else
-		# 		k = v
-		# 	end
-		# 	logger.info " value is #{k}"
-
-		# 	logger.info ""
-		# end
 	end
 
 	def clear_records
@@ -169,22 +148,6 @@ class ConfigurationFieldsController < ApplicationController
 	def cached_records
 		@records = Rails.cache.read("records_#{ip_identifer}") unless Rails.cache.read("records_#{ip_identifer}").nil?
 	end
-
-	# def append_record_sequence_no
-	# 	cached_records #read memcached records to get @records
-	# 	record_count = 0
-	# 	appended_records = []
-	# 	@records.each do |record|
-	# 		record_sequence_no = (("0000000") + (record_count + 1).to_s).last(7) + ";"
-	# 		logger.info record_sequence_no
-	# 		record += record_sequence_no
-	# 		appended_records << record
-	# 		record_count += 1
-	# 	end
-	# 	Rails.cache.write("records_#{ip_identifer}", appended_records)
-	# 	cached_records
-	# 	logger.info @records
-	# end
 
 	def set_ordered_parameters
 		@order = []
