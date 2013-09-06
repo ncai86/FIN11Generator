@@ -6,7 +6,7 @@ gem 'browser'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 group :development do
-	gem 'sqlite3'
+  gem 'sqlite3'
 end
 
 group :development, :test do
@@ -27,7 +27,7 @@ group :assets do
 end
 
 group :production do
-	gem "pg"
+  gem 'pg'
 end
 
 gem 'remotipart', '~> 1.0'
@@ -36,6 +36,8 @@ gem 'gon'
 gem 'dalli'
 gem 'countries'
 gem 'jquery-validation-rails'
+
+ruby '2.0.0'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
