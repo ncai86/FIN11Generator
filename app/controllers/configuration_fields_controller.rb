@@ -11,7 +11,7 @@ class ConfigurationFieldsController < ApplicationController
 
 	def add_record
 		logger.info "@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
-		logger.info ip_identifer
+		logger.info session[:user]
 		logger.info "@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 		flash[:error] = nil
 		# Gets the constant FIELD that contains the ordered parameters and parameterizes each value
@@ -49,27 +49,27 @@ class ConfigurationFieldsController < ApplicationController
 		# record += @record_sequence_no
 
 		# rewrite collated value to records key after adding to FIN11 record string to collated array
-		Rails.cache.write("records_#{ip_identifer}", collated << record)
-		logger.info Rails.cache.read("records_#{ip_identifer}")
+		Rails.cache.write("records_#{session[:user]}", collated << record)
+		logger.info Rails.cache.read("records_#{session[:user]}")
 		cached_records
 		@index = @records.rindex(record)
 		@add_record = [collated.size.to_s, record]
 	end
 
 	def clear_records
-		Rails.cache.write("records_#{ip_identifer}", nil)
-		Rails.cache.write("MID_TID_#{ip_identifer}", nil)
+		Rails.cache.write("records_#{session[:user]}", nil)
+		Rails.cache.write("MID_TID_#{session[:user]}", nil)
 		# redirect_to root_url
 	end
 
 	def delete_record
 		@deletion_index = params[:index].to_i
-		mid_tid_records = Rails.cache.read("MID_TID_#{ip_identifer}")
+		mid_tid_records = Rails.cache.read("MID_TID_#{session[:user]}")
 		# Rails.cache.write("records_#{ip_identifer}", @records.reject{|r| logger.info r; logger.info "record[#{@records.rindex(r)}== #{@deletion_index}] #{ @records.rindex(r) == @deletion_index}"; @records.index(r) == @deletion_index })
 		@records.delete_at @deletion_index
 		mid_tid_records.delete_at @deletion_index
-		Rails.cache.write "records_#{ip_identifer}", @records
-		Rails.cache.write "MID_TID_#{ip_identifer}", mid_tid_records
+		Rails.cache.write "records_#{session[:user]}", @records
+		Rails.cache.write "MID_TID_#{session[:user]}", mid_tid_records
 		#Set @records for re-rendering of records
 		cached_records
 	end
@@ -132,7 +132,7 @@ class ConfigurationFieldsController < ApplicationController
 
 	def valid_mid_tid?(mid_tid)
 		#Check if midtid already exists in array
-		mid_tid_records = Rails.cache.read("MID_TID_#{ip_identifer}")
+		mid_tid_records = Rails.cache.read("MID_TID_#{session[:user]}")
 		if mid_tid_records.nil?
 			mid_tid_records = [mid_tid]
 		else
@@ -143,13 +143,13 @@ class ConfigurationFieldsController < ApplicationController
 				mid_tid_records << mid_tid
 			end
 		end
-		Rails.cache.write("MID_TID_#{ip_identifer}", mid_tid_records, expires_in: 1.hour) if flash[:error].nil?
+		Rails.cache.write("MID_TID_#{session[:user]}", mid_tid_records, expires_in: 1.hour) if flash[:error].nil?
 		return true
 	end
 
 
 	def cached_records
-		@records = Rails.cache.read("records_#{ip_identifer}") unless Rails.cache.read("records_#{ip_identifer}").nil?
+		@records = Rails.cache.read("records_#{session[:user]}") unless Rails.cache.read("records_#{session[:user]}").nil?
 	end
 
 	def set_ordered_parameters
