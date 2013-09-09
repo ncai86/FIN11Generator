@@ -10,6 +10,9 @@ class ConfigurationFieldsController < ApplicationController
 	end
 
 	def add_record
+		console.log "@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+		console.log ip_identifer
+		console.log "@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
 		flash[:error] = nil
 		# Gets the constant FIELD that contains the ordered parameters and parameterizes each value
 		set_ordered_parameters
