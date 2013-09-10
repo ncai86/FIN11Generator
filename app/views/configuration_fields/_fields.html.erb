@@ -1,29 +1,32 @@
 
 <div class="form-container">
-	<div class="first-fields span12"> 
-		<div class="span6">
-			<%= form_tag nil, id: 'filename_form', remote: true do %>
-			<table class="form-fields" align="center">
-				<tr>
-					<td><%= label_tag :"base-currency-code", "Base Currency Code" %></td>
-					<td><%= select_tag :"base-currency-code", options_for_select(["KRW", "USD"]), include_blank: "", class: "required" %></td>
-				</tr>
-				<tr>
-					<td><%= label_tag :version, "Version" %></td>
-					<td><%= text_field_tag :version, nil, minlength: 4, maxlength: 4, class: "required digits" %></td>
-				</tr>
-			</table>
-			<% end %>
-		</div>
-		<div class="span6">
-			<table class="form-fields" align="center">
-				<tr>
-					<td><%= label_tag :"fcc-acquirer-id", "FCC Acquirer ID" %></td>
-					<td><%= select_tag :"fcc-acquirer-id",  options_for_select(["0301", "0302", "0303", "0304"]), class: "required" %></td>
-				</tr>
-			</table>
-		</div>
+	<li>Add FIN11 records before generating a FIN11 file. TIDs for each record must be unique for each MID.</li>
+
+	<%= form_tag nil, id: 'filename_form', remote: true do %>
+	<div class="first-fields span12">
+		<table class="form-fields span5" align="center">
+			<tr>
+				<td><%= label_tag :"base-currency-code", "Base Currency Code" %></td>
+				<td><%= select_tag :"base-currency-code", options_for_select(["KRW", "USD"]), include_blank: "", class: "required" %></td>
+			</tr>
+			<tr>
+				<td><%= label_tag :version, "Version" %></td>
+				<td><%= text_field_tag :version, nil, minlength: 4, maxlength: 4, class: "required digits" %></td>
+			</tr>
+		</table>
+		<div class="span2"></div>
+		<table class="form-fields span5" align="center">
+			<tr>
+				<td><%= label_tag :"fcc-acquirer-id", "FCC Acquirer ID" %></td>
+				<td><%= select_tag :"fcc-acquirer-id",  options_for_select(["0301", "0302", "0303", "0304"]), class: "required" %></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
 	</div>
+	<% end %>
 	
 	<%= form_tag add_record_configuration_fields_path, id: "generator_form", remote: true do %>
 	<div>
@@ -31,10 +34,12 @@
 			<table class="form-fields record" align="center">
 				<tr>
 					<td>
-						<%= label_tag :"merchant-category-code", "Merchant Category Code" %>
+						<!-- !!!!!!!this is renamed according to japan specifications!!!!!!! -->
+						<%= label_tag :"merchant-category-code", "FX markup percentage" %> 
 					</td>
 					<td>
-						<%= select_tag :"merchant-category-code", options_for_select((1..5).map{|n| ["0#{n}", "0#{n}"]}), name: "fields[merchant-category-code]" %>
+						<%= text_field_tag :"merchant-category-code", nil, maxlength: 3, number: true, name: "fields[merchant-category-code]", class: "required", placeholder: "%" %>
+						<%#= select_tag :"merchant-category-code", options_for_select((1..5).map{|n| ["0#{n}", "0#{n}"]}), name: "fields[merchant-category-code]" %>
 					</td>
 				</tr>
 				<tr>
@@ -42,7 +47,7 @@
 						<%= label_tag :"point-of-sale-name", "Point of sale name" %>
 					</td>
 					<td>
-						<%= text_field_tag :"point-of-sale-name", nil,maxlength: 64, name: "fields[point-of-sale-name]", class: "required" %>
+						<%= text_field_tag :"point-of-sale-name", nil, maxlength: 64, name: "fields[point-of-sale-name]", class: "required" %>
 					</td>
 				</tr>
 				<tr>
@@ -127,10 +132,11 @@
 				</tr>
 				<tr>
 					<td>
-						<%= label_tag :"company-fax-number", "Company's fax number (include prefix)" %>
+						<!-- !!!!!!!this is renamed according to japan specifications!!!!!!! -->
+						<%= label_tag :"company-fax-number", "Merchant Category" %>
 					</td>
 					<td>
-						<%= text_field_tag :"company-fax-number", nil, maxlength: 20, name: "fields[company-fax-number]", class: "digits" %>
+						<%= text_field_tag :"company-fax-number", nil, minlength: 4,maxlength: 4, name: "fields[company-fax-number]", class: "required digits" %>
 					</td>
 				</tr>
 				<tr>
