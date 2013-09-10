@@ -1,10 +1,11 @@
 
 <div class="form-container">
-	<li>Add FIN11 records before generating a FIN11 file. TIDs for each record must be unique for each MID.</li>
-
+	<span class="span12">Add FIN11 records before generating a FIN11 file. TIDs for each record must be unique for each MID.</span>
 	<%= form_tag nil, id: 'filename_form', remote: true do %>
+
 	<div class="first-fields span12">
-		<table class="form-fields span5" align="center">
+
+		<table class="form-fields span6" align="center">
 			<tr>
 				<td><%= label_tag :"base-currency-code", "Base Currency Code" %></td>
 				<td><%= select_tag :"base-currency-code", options_for_select(["KRW", "USD"]), include_blank: "", class: "required" %></td>
@@ -14,20 +15,17 @@
 				<td><%= text_field_tag :version, nil, minlength: 4, maxlength: 4, class: "required digits" %></td>
 			</tr>
 		</table>
-		<div class="span2"></div>
-		<table class="form-fields span5" align="center">
+	
+		<table class="form-fields span6" align="center">
 			<tr>
 				<td><%= label_tag :"fcc-acquirer-id", "FCC Acquirer ID" %></td>
 				<td><%= select_tag :"fcc-acquirer-id",  options_for_select(["0301", "0302", "0303", "0304"]), class: "required" %></td>
 			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-			</tr>
 		</table>
+
 	</div>
 	<% end %>
-	
+
 	<%= form_tag add_record_configuration_fields_path, id: "generator_form", remote: true do %>
 	<div>
 		<div class="span5">
