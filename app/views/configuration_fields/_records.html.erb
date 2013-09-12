@@ -1,13 +1,13 @@
 
 
 <div align="center" id="tableContainer" class="table-container span12" >
-	<%= bootstrap_flash %>
-	<div id="no-record-error"></div>
+	
+	<div id="no-record-error"><%= bootstrap_flash %></div>
 	<table cellpadding="10" cellspacing="0" width="900px" id="content-table">
 		<thead class="fixedHeader">
 			<tr class="alternateRow">
 				<th width="5%">No.</th>
-				<th align="left">FIN11 Details</th>
+				<th width="80%">FIN11 Details</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -17,7 +17,7 @@
 				<tr class="record-rows" id="record-row-<%= index + 1 %>">
 					<td width="5%"><%= "#{(index + 1)}." %></td>
 					<td align="left"><%= record %></td>
-					<td><%= link_to "Delete Record", delete_record_configuration_fields_path(index: index), method: "post", remote: true, class: "delete-record", id: "delete-record-#{index}", confirm: "Are you sure you want to do that?" %></td>
+					<td><%= link_to "Delete Record", delete_record_configuration_fields_path(index: index), method: "post", remote: true, class: "delete-record", id: "delete-record-#{index}", confirm: "Delete this record?" %></td>
 				</tr>
 				<% end %>
 			<% end %>
