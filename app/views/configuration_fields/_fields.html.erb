@@ -33,16 +33,16 @@
 				<tr>
 					<td>
 						<!-- !!!!!!!this is renamed according to japan specifications!!!!!!! -->
-						<%= label_tag :"merchant-category-code", "FX markup percentage" %> 
+						<%= label_tag :"merchant-category-code", "Currency Merchant Group" %> 
 					</td>
 					<td>
-						<%= text_field_tag :"merchant-category-code", nil, maxlength: 3, number: true, name: "fields[merchant-category-code]", class: "required", placeholder: "%" %>
-						<%#= select_tag :"merchant-category-code", options_for_select((1..5).map{|n| ["0#{n}", "0#{n}"]}), name: "fields[merchant-category-code]" %>
+						<%#= text_field_tag :"merchant-category-code", nil, maxlength: 3, number: true, name: "fields[merchant-category-code]", class: "required", placeholder: "%" %>
+						<%= select_tag :"merchant-category-code", options_for_select((1..3).map{|n| ["0#{n}", "0#{n}"]}), name: "fields[merchant-category-code]" %>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<%= label_tag :"point-of-sale-name", "Point of sale name" %>
+						<%= label_tag :"point-of-sale-name", "Merchant Name" %>
 					</td>
 					<td>
 						<%= text_field_tag :"point-of-sale-name", nil, maxlength: 64, name: "fields[point-of-sale-name]", class: "required" %>
@@ -50,10 +50,27 @@
 				</tr>
 				<tr>
 					<td>
-						<%= label_tag :"terminal-id", "Terminal ID" %>
+						<%= label_tag :"pos-contact-name", "Merchant Contact Name" %>
 					</td>
 					<td>
-						<%= text_field_tag :"terminal-id", nil, maxlength: 8, name: "fields[terminal-id]", class: "required digits" %>
+						<%= text_field_tag :"pos-contact-name", nil, maxlength: 50, name: "fields[pos-contact-name]", class: "required" %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<%= label_tag :"point-of-sale-telephone", "Merchant Contact Number" %>
+					</td>
+					<td>
+						<%= text_field_tag :"point-of-sale-telephone", nil, maxlength: 20, name: "fields[point-of-sale-telephone]", class: "required" %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<!-- !!!!!!!this is renamed according to japan specifications!!!!!!! -->
+						<%= label_tag :"company-fax-number", "Merchant Category" %>
+					</td>
+					<td>
+						<%= text_field_tag :"company-fax-number", nil, minlength: 4,maxlength: 4, name: "fields[company-fax-number]", class: "required digits" %>
 					</td>
 				</tr>
 				<tr>
@@ -80,22 +97,7 @@
 						<%= select_tag :"terminal-status", options_for_select([["Created", "C"], ["Installed", "I"], ["Deactivated", "D"]]), name: "fields[terminal-status]", class: "required" %>
 					</td>
 				</tr>
-				<tr>
-					<td>
-						<%= label_tag :"pos-contact-name", "POS Contact Name" %>
-					</td>
-					<td>
-						<%= text_field_tag :"pos-contact-name", nil, maxlength: 50, name: "fields[pos-contact-name]" %>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<%= label_tag :"point-of-sale-telephone", "Point of sale telephone (include prefix)" %>
-					</td>
-					<td>
-						<%= text_field_tag :"point-of-sale-telephone", nil, maxlength: 20, name: "fields[point-of-sale-telephone]", class: "required" %>
-					</td>
-				</tr>
+				
 				<tr>
 					<td>
 						<%= label_tag :"company-legal-name", "Company's Legal Name" %>
@@ -130,15 +132,6 @@
 				</tr>
 				<tr>
 					<td>
-						<!-- !!!!!!!this is renamed according to japan specifications!!!!!!! -->
-						<%= label_tag :"company-fax-number", "Merchant Category" %>
-					</td>
-					<td>
-						<%= text_field_tag :"company-fax-number", nil, minlength: 4,maxlength: 4, name: "fields[company-fax-number]", class: "required digits" %>
-					</td>
-				</tr>
-				<tr>
-					<td>
 						<%= label_tag :"company-email", "Company's Email" %>
 					</td>
 					<td>
@@ -147,10 +140,10 @@
 				</tr>
 				<tr>
 					<td>
-						<%= label_tag :"terminal-manager", "Terminal Manager" %>
+						<%= label_tag :"terminal-manager", "FCC Sales/Account Manager" %>
 					</td>
 					<td>
-						<%= text_field_tag :"terminal-manager", nil, maxlength: 64, name: "fields[terminal-manager]" %>
+						<%= text_field_tag :"terminal-manager", nil, maxlength: 64, name: "fields[terminal-manager]", class: "required" %>
 					</td>
 				</tr>
 				<tr>
@@ -176,10 +169,10 @@
 				</tr>
 				<tr>
 					<td>
-						<%= label_tag :"point-of-sale-country", "Point of sale country" %>
+						<%= label_tag :"terminal-id", "Terminal ID" %>
 					</td>
 					<td>
-						<%= select_tag :"point-of-sale-country", options_for_select(@countries, selected: ["KR", "Korea, Republic of"]), name: "fields[point-of-sale-country]", class: "required" %>
+						<%= text_field_tag :"terminal-id", nil, maxlength: 8, name: "fields[terminal-id]", class: "required digits" %>
 					</td>
 				</tr>
 				<tr>
@@ -192,7 +185,31 @@
 				</tr>
 				<tr>
 					<td>
-						<%= label_tag :"installation-date", "Installation date" %>
+						<%= label_tag :"point-of-sale-country", "Merchant Country (POS country)" %>
+					</td>
+					<td>
+						<%= select_tag :"point-of-sale-country", options_for_select(@countries, selected: ["KR", "Korea, Republic of"]), name: "fields[point-of-sale-country]", class: "required" %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<%= label_tag :"point-of-sale-address", "Merchant Address" %>
+					</td>
+					<td>
+						<%= text_area_tag :"point-of-sale-address", nil, maxlength: 50, name: "fields[point-of-sale-address]", class: "required" %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<%= label_tag :"point-of-sale-city", "Region (City)" %>
+					</td>
+					<td>
+						<%= text_field_tag :"point-of-sale-city", nil, maxlength: 32,  name: "fields[point-of-sale-city]", class: "required" %>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<%= label_tag :"installation-date", "Terminal Installation Date" %>
 					</td>
 					<td>
 						<%= text_field_tag :"installation-date", Date.today.to_s.gsub("-",""), minlength: 8, maxlength: 8, name: "fields[installation-date]", class: "required digits" %>
@@ -206,22 +223,7 @@
 						<%= text_field_tag :"model-of-pos", nil, maxlength: 50, name: "fields[model-of-pos]", class: "required" %>
 					</td>
 				</tr>
-				<tr>
-					<td>
-						<%= label_tag :"point-of-sale-address", "Point of sale address" %>
-					</td>
-					<td>
-						<%= text_field_tag :"point-of-sale-address", nil, maxlength: 50, name: "fields[point-of-sale-address]", class: "required" %>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<%= label_tag :"point-of-sale-city", "Point of sale city" %>
-					</td>
-					<td>
-						<%= text_field_tag :"point-of-sale-city", nil, maxlength: 32,  name: "fields[point-of-sale-city]", class: "required" %>
-					</td>
-				</tr>
+				
 				<tr>
 					<td>
 						<%= label_tag :"point-of-sale-province", "Point of sale province" %>
