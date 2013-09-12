@@ -63,6 +63,7 @@ class ConfigurationFieldsController < ApplicationController
 	end
 
 	def delete_record
+		flash[:error] = nil
 		@deletion_index = params[:index].to_i
 		mid_tid_records = Rails.cache.read("MID_TID_#{session[:user]}")
 		# Rails.cache.write("records_#{ip_identifer}", @records.reject{|r| logger.info r; logger.info "record[#{@records.rindex(r)}== #{@deletion_index}] #{ @records.rindex(r) == @deletion_index}"; @records.index(r) == @deletion_index })
