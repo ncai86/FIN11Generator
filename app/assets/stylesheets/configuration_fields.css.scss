@@ -24,6 +24,8 @@ table#content-table {
 	display: table;
 	width: 900px;
 	border-spacing: 2px;
+    table-layout: fixed;
+    word-wrap: break-word;
 }
 
 table#content-table tr {
