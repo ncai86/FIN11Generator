@@ -23,6 +23,8 @@ $("#generate_file").on "click", ->
 		$("#file_fcc_acquirer_id").val($("#fcc-acquirer-id").val())
 		$("#file_version").val($("#version").val())
 		$("#filename_form").submit()
+	
+
 
 # Validate forms
 $("#generator_form").validate()
@@ -38,8 +40,10 @@ $("#filename_form").validate
 	
 
 		
-# submit form
+# submit form, set dates
 $("#add-record").on "click", -> 
+	$("#date-of-last-update").val($("#installation-date").val())
+	$("#creation-date").val($("#installation-date").val())
 	$("#generator_form").submit()
 
 #validation class rules
