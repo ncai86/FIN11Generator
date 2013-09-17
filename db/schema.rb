@@ -11,7 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130816070822) do
+ActiveRecord::Schema.define(:version => 20130917073152) do
+
+  create_table "acquirers", :force => true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.integer  "base_currency_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "base_currencies", :force => true do |t|
+    t.string   "currency"
+    t.integer  "configuration_name_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
 
   create_table "configuration_fields", :force => true do |t|
     t.string   "name"
@@ -27,6 +42,14 @@ ActiveRecord::Schema.define(:version => 20130816070822) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "currency_merchant_groups", :force => true do |t|
+    t.string   "name"
+    t.integer  "group_id"
+    t.integer  "acquirer_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
 end
