@@ -6,6 +6,8 @@ FIN11Generator::Application.routes.draw do
       post 'clear_records'
       post 'delete_record'
       post 'generate_file'
+      get 'acquirer_list'
+      get 'currency_merchant_group_list'
       # post 'process_file'
       # get 'download'
     end
