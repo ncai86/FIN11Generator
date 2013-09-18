@@ -128,6 +128,32 @@ class ConfigurationFieldsController < ApplicationController
 		# FileUtils.remove_file(b)
 	end
 
+	def acquirer_list
+		if !params[:currency].empty?
+			@data = BaseCurrency.find_by_currency(params[:currency]).acquirers.collect {|acquirer| {:name => acquirer.name, :code => acquirer.code}}
+		else
+			@data = nil
+		end
+
+		respond_to do |format|
+			format.js { render :json => @data}
+		end
+	end
+
+	def currency_merchant_group_list
+		if !params[:acquirer].empty?
+			@data = Acquirer.find_by_code(params[:acquirer]).currency_merchant_groups.collect {|group| {:name => group.name, :group_id => group.group_id}}
+		else
+			@data = nil
+		end
+
+		respond_to do |format|
+			format.js { render :json => @data}
+		end
+	end
+
+
+
 
 	private
 

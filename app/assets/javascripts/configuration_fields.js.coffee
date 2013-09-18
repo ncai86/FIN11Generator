@@ -65,3 +65,31 @@ $("#creation-date, #installation-date, #date-of-last-update").datepicker({ dateF
 $(".delete-record").on "click", ->
 	$("table#content-table tbody tr").each (index, element) ->
 		$(element).children().first("td").text index + 1 + "."
+
+
+
+###### AJAX get acquirer ID #####
+#################################
+$("#base-currency-code").change ->
+	$.get "/configuration_fields/acquirer_list",{currency: $("#base-currency-code option:selected").val()}, ((data) ->
+		$("#fcc-acquirer-id").empty()
+		$("#merchant-category-code").empty()
+		if data?
+			$.each data, (key, value) ->
+				$("#fcc-acquirer-id").append $("<option></option>").attr("value", value.code).text(value.name)
+			$("#fcc-acquirer-id").change ->
+			$.get "/configuration_fields/currency_merchant_group_list",{acquirer: $("#fcc-acquirer-id option:selected").val()}, ((data) ->
+				if data?
+					$.each data, (key, value) ->
+						$("#merchant-category-code").append $("<option></option>").attr("value", value.group_id).text(value.name)
+			), "json"
+	), "json"
+
+###### AJAX get currency merchant group #####
+#############################################
+$("#fcc-acquirer-id").change ->
+	$.get "/configuration_fields/currency_merchant_group_list",{acquirer: $("#fcc-acquirer-id option:selected").val()}, ((data) ->
+		$("#merchant-category-code").empty()
+		$.each data, (key, value) ->
+			$("#merchant-category-code").append $("<option></option>").attr("value", value.group_id).text(value.name)
+	), "json"
