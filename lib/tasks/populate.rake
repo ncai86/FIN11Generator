@@ -35,18 +35,27 @@ namespace :populate do
   task :kor_currency_merchant_groups => :environment do
     keb_krw = Acquirer.where(name: "KEB-KRW").first
     keb_krw.currency_merchant_groups.create([{name: "Group 1", group_id: 1},
-                                            {name: "Group 2", group_id: 2},
-                                            {name: "Group 3", group_id: 10}
+                                             {name: "Group 2", group_id: 2},
+                                             {name: "Group 3", group_id: 10}
                                             ])
 
     keb_usd = Acquirer.where(name: "KEB-USD").first
-    keb_usd.currency_merchant_groups.create(name: "Group 1", group_id: 1)
+    keb_usd.currency_merchant_groups.create([{name: "Group 1", group_id: 1},
+                                             {name: "Group 2", group_id: 3},
+                                             {name: "Group 3", group_id: 5}
+                                             ])
 
     lotte_krw = Acquirer.where(name: "LOTTE-KRW").first
-    lotte_krw.currency_merchant_groups.create(name: "Group 1", group_id: 9)
+    lotte_krw.currency_merchant_groups.create([{name: "Group 1", group_id: 9},
+                                               {name: "Group 2", group_id: 11},
+                                               {name: "Group 3", group_id:12}
+                                               ])
 
     lotte_usd = Acquirer.where(name: "LOTTE-USD").first
-    lotte_usd.currency_merchant_groups.create(name: "Group 1", group_id: 2)
+    lotte_usd.currency_merchant_groups.create([{name: "Group 1", group_id: 2},
+                                               {name: "Group 2", group_id: 4},
+                                               {name: "Group 3", group_id: 6}
+                                               ])
   end
 
 end
