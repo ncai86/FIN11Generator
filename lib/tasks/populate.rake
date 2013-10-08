@@ -58,4 +58,9 @@ namespace :populate do
                                                ])
   end
 
+
+  desc "Recreate KoreaKIS Data"
+  task :test => [:environment, :kor_config_field, :kor_base_currencies, :kor_acquirers, :kor_currency_merchant_groups] do
+  end
+
 end
